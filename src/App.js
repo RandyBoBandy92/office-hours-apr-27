@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import WorkShop from "./pages/Workshop";
 import Posts from "./pages/Posts";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           </ul>
         </nav>
         <Routes>
-          <Route path="/workshop" element={<WorkShop />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/workshop" element={<WorkShop />} />
         </Routes>
       </BrowserRouter>
     </div>

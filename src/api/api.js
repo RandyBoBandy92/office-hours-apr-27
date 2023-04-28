@@ -12,7 +12,27 @@ const getPosts = () => {
     });
 };
 
-export { getPosts };
+const getPostById = (id) => {
+  return fetch(`${ROOT_URL}/posts/${id}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    });
+};
+
+const getCommentsByPostId = (postId) => {
+  return fetch(`${ROOT_URL}/posts/${postId}/comments`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    });
+};
+
+export { getPosts, getPostById, getCommentsByPostId };
 
 // ASYNC ALTERNATIVE
 // const fetchPosts = async () => {

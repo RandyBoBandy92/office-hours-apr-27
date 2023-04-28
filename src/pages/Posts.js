@@ -14,7 +14,9 @@ function Posts() {
     <div>
       <h1>Posts</h1>
       {posts.length > 0 &&
-        posts.map((postData) => <Post key={postData.id} postData={postData} />)}
+        posts.map((postData) => (
+          <Post key={postData.id} postData={postData} useLink={true} />
+        ))}
     </div>
   );
 }
