@@ -8,16 +8,29 @@ const SinglePost = () => {
   const { id } = useParams();
   const [postData, setPostData] = useState({});
   const [postComments, setPostComments] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    getPostById(id).then((postData) => setPostData(postData));
-    getCommentsByPostId(id).then((postComments) => {
-      setPostComments(postComments);
-    });
+    getPostById(id)
+      .then((postData) => {
+        setPostData(postData);
+      })
+      .catch((error) => {
+        setErrors([...errors, error.message]);
+      });
+    getCommentsByPostId(id)
+      .then((postComments) => {
+        setPostComments(postComments);
+      })
+      .catch((error) => {
+        setErrors([...errors, error.message]);
+      });
   }, []);
 
   return (
     <div>
+      {errors.length > 0 &&
+        errors.map((error) => <div key={error}>{error}</div>)}
       {postData?.id && <Post postData={postData} useLink={false} />}
       {postComments.length > 0 && (
         <section>

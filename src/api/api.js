@@ -13,8 +13,12 @@ const getPosts = () => {
 };
 
 const getPostById = (id) => {
-  return fetch(`${ROOT_URL}/posts/${id}`)
+  const postPath = `${ROOT_URL}/posts/${id}`;
+  return fetch(postPath)
     .then((response) => {
+      if (response.status !== 200) {
+        throw Error(`API failed to fetch: ${postPath}`);
+      }
       return response.json();
     })
     .then((data) => {
