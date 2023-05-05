@@ -6,6 +6,7 @@ const MediaQuery = ({ query, mobile, desktop }) => {
 
   const handleMediaChange = (e) => {
     // this is a "match" event
+    debugger;
     setMatches(e.matches);
   };
 

@@ -7,6 +7,7 @@ function Posts() {
   const { state } = useContext(AppContext);
   const { settings } = state;
   const [posts, setPosts] = useState([]);
+  const [errors, setErrors] = useState();
   useEffect(() => {
     // getPosts().then((data) => {
     //   setPosts(data);
@@ -15,19 +16,25 @@ function Posts() {
 
     // in order to use async for setting our state, we have to wrap the code which does so
     // in an async function, otherwise we cannot use the special 'await' keyword
-    // const setPostsAsync = async () => {
-    //   const data = await getPostsAsync();
-    //   setPosts(data);
-    // };
+    const setPostsAsync = async () => {
+      try {
+        const data = await getPostsAsync();
+        setPosts(data);
+      } catch (error) {
+        setErrors(error);
+      }
+    };
+    setPostsAsync();
 
-    // ALTERNATIVE: you can write an async function in api.js but then the final state setting, can be done with promises
-    getPostsAsync().then((data) => {
-      setPosts(data);
-    });
+    // // ALTERNATIVE: you can write an async function in api.js but then the final state setting, can be done with promises
+    // getPostsAsync().then((data) => {
+    //   setPosts(data);
+    // });
   }, []);
 
   return (
     <div>
+      {errors && <p>{errors.message}</p>}
       <h1 style={{ color: settings.color }}>Posts</h1>
       {posts.length > 0 &&
         posts.map((postData) => (
